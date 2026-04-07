@@ -1,5 +1,6 @@
 package com.app.controller.controller;
 
+import com.app.controller.domain.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.catalina.User;
 import org.springframework.stereotype.Controller;
@@ -53,6 +54,7 @@ public class ExampleController {
     // ModelAttribute: 반드시 쿼리스트링 값을 전달해야한다.
     @GetMapping("ex04")
     public String ex04(@ModelAttribute("name") String name){
+
         return "ex04";
     }
 
@@ -62,7 +64,32 @@ public class ExampleController {
     // 화면에 이름: OOO
     // 취미: OOO으로 출력하기
     @GetMapping("ex05")
-    public String ex05(@ModelAttribute("name") String name, @ModelAttribute("hobby") String hobby){
+    public String ex05(
+            @ModelAttribute("name") String name,
+            @ModelAttribute("hobby") String hobby
+    ){
         return "ex05";
+    }
+
+    @GetMapping("ex06")
+    public String goToEx06(){
+        return "ex06";
+    }
+
+    @GetMapping("ex06-complete")
+    public String ex06Complete(
+            @ModelAttribute("memberName") String memberName
+    ){
+        return "ex06-complete";
+    }
+    
+//    회원가입 완료후
+//    페이지에 OOO님 환영합니다 출력
+    @PostMapping("ex06")
+    public String ex06(MemberVO memberVO){
+        log.info("응답이 들어옴!");
+        log.info("memberVO : {}", memberVO);
+//        return "redirect:/ex/ex06-complete?memberName=" + memberVO.getMemberName();
+        return "redirect:/ex/ex06-complete";
     }
 }
