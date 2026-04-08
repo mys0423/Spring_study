@@ -1,6 +1,7 @@
-package com.app.controller.controller;
+package com.app.threetier.controller;
 
-import com.app.controller.mapper.PostMapper;
+import com.app.threetier.mapper.PostMapper;
+import com.app.threetier.service.PostService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,10 +13,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequiredArgsConstructor
 public class PostController {
 
-    private final PostMapper postMapper;
+    private final PostService postService;
 
     @GetMapping("/list")
     public void goTolist(Model model) {
-        model.addAttribute("posts", postMapper.selectAll());
+        model.addAttribute("posts", postService.getPosts());
+    }
+
+    @GetMapping("/read")
+    public void goToRead(Long id, Model model) {
+        model.addAttribute("post", postService.getPost(id));
     }
 }

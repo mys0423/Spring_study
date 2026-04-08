@@ -8,9 +8,9 @@
     <title>게시판 목록</title>
 </head>
 <body>
-<!-- 게시판 리스트 화면에 출력하기 -->
+<!--    게시판 리스트 화면에 출력하기 -->
 <th:block th:if="${#lists.size(posts) != 0}">
-    <table>
+    <table border="1">
         <tr>
             <th>번호</th>
             <th>제목</th>
@@ -20,12 +20,16 @@
         <th:block th:each="post: ${posts}">
             <tr th:object="${post}">
                 <td th:text="*{id}"></td>
-                <td th:text="*{postTitle}"></td>
+                <td>
+                    <a th:href="@{/posts/read(id=*{id})}" th:text="*{postTitle}"></a>
+                </td>
                 <td th:text="*{postContent}"></td>
                 <td th:text="*{postReadCount}"></td>
             </tr>
         </th:block>
     </table>
+
+
 </th:block>
 <th:block th:unless="${#lists.size(posts) != 0}">
     <h1>게시글이 없습니다.</h1>
