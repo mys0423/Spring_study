@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.app.threetier.mapper.ProductMapper">
+    <insert id="insert" parameterType="ProductVO">
+        INSERT INTO TBL_PRODUCT(ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_STOCK, PRODUCT_BRAND)
+        VALUES (SEQ_PRODUCT.NEXTVAL, #{productName}, #{productPrice}, #{productStock}, #{productBrand})
+    </insert>
+
+<!--    <insert id="insert" parameterType="ProductVO">-->
+<!--        <selectKey keyProperty="id" order="BEFORE" resultType="Long">-->
+<!--            SELECT SEQ_PRODUCT.NEXTVAL FROM DUAL-->
+<!--        </selectKey>-->
+<!--        INSERT INTO TBL_PRODUCT-->
+<!--        VALUES (#{id}, #{productName}, #{productPrice}, #{productStock}, #{productBrand})-->
+<!--    </insert>-->
+
+    <select id="selectAll" resultType="ProductVO">
+        SELECT ID, PRODUCT_NAME, PRODUCT_PRICE, PRODUCT_STOCK, PRODUCT_BRAND
+        FROM TBL_PRODUCT
+        ORDER BY ID DESC
+    </select>
+
+</mapper>

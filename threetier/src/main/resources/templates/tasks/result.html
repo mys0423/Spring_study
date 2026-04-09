@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>점수 연산</title>
+</head>
+<body>
+    <h1>연산 결과</h1>
+    <div th:object="${taskVO}">
+        <ul>
+            <li>국어 : <span th:text="*{kor}">0</span>점</li>
+            <li>영어 : <span th:text="*{eng}">0</span>점</li>
+            <li>수학 : <span th:text="*{math}">0</span>점</li>
+        </ul>
+        <hr>
+        <h2>총점 : <span th:text="*{total}">0</span>점</h2>
+
+        <h2>평균 : <span th:text="${#numbers.formatDecimal(taskVO.average, 1, 2)}">0.00</span>점</h2>
+    </div>
+</body>
+</html>

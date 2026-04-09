@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>상품 등록</title>
+</head>
+<body>
+    <h1>상품 등록</h1>
+    <form th:action="@{/products/register}" method="post" th:object="${productVO}">
+        <div>
+            <input type="text" th:field="*{productName}" placeholder="상품이름">
+        </div>
+        <div>
+            <input type="number" th:field="*{productPrice}" placeholder="상품가격">
+        </div>
+        <div>
+            <input type="number" th:field="*{productStock}" placeholder="상품재고">
+        </div>
+        <div>
+            <input type="text" th:field="*{productBrand}" placeholder="브랜드">
+        </div>
+        <button type="submit">등록 완료</button>
+
+    </form>
+</body>
+</html>
