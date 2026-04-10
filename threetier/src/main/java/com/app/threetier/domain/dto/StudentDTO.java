@@ -1,11 +1,11 @@
-package com.app.threetier.domain.vo;
+package com.app.threetier.domain.dto;
 
 import lombok.Data;
 import org.springframework.stereotype.Component;
 
 @Component
 @Data
-public class StudentVO {
+public class StudentDTO {
     private Long id;
     private String studentName;
     private Integer kor;
@@ -13,5 +13,4 @@ public class StudentVO {
     private Integer math;
     private Integer total;
     private Double average;
-
 }
