@@ -9,9 +9,5 @@ import java.util.Optional;
 
 @Mapper
 public interface PostMapper {
-    public List<PostDTO> selectAll();
-    public Optional<PostDTO> select(Long id);
-    public void update(PostVO postVO);
-    public void updateReadCount(Long id);
-    public void delete(Long id);
+
 }
