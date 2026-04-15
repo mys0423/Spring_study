@@ -1,5 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.app.restful.mapper.PostMapper">
+    <insert id="insert" parameterType="PostVO">
+        <selectKey keyProperty="id" resultType="Long" order="BEFORE">
+            SELECT SEQ_POST.NEXTVAL FROM DUAL
+        </selectKey>
+        INSERT INTO TBL_POST (ID, POST_TITLE, POST_CONTENT, MEMBER_ID, POST_READ_COUNT)
+        VALUES (#{id}, #{postTitle}, #{postContent}, #{memberId}, 0)
+    </insert>
 
+    <select id="selectAll" resultType="PostVO">
+        SELECT P.ID, P.POST_TITLE, P.POST_CONTENT, P.MEMBER_ID, P.POST_READ_COUNT, M.MEMBER_EMAIL, M.MEMBER_NAME
+        FROM TBL_POST P
+                 JOIN TBL_MEMBER M ON P.MEMBER_ID = M.ID
+        ORDER BY P.ID DESC
+    </select>
+
+    <select id="selectById" parameterType="Long" resultType="PostVO">
+        SELECT P.ID, P.POST_TITLE, P.POST_CONTENT, P.MEMBER_ID, P.POST_READ_COUNT, M.MEMBER_EMAIL, M.MEMBER_NAME
+        FROM TBL_POST P
+                 JOIN TBL_MEMBER M ON P.MEMBER_ID = M.ID
+        WHERE P.ID = #{id}
+    </select>
+
+    <update id="update" parameterType="PostVO">
+        UPDATE TBL_POST
+        SET POST_TITLE = #{postTitle}, POST_CONTENT = #{postContent}
+        WHERE ID = #{id}
+    </update>
+
+    <update id="updateReadCount" parameterType="Long">
+        UPDATE TBL_POST
+        SET POST_READ_COUNT = POST_READ_COUNT + 1
+        WHERE ID = #{id}
+    </update>
+
+    <delete id="delete" parameterType="Long">
+        DELETE FROM TBL_POST
+        WHERE ID = #{id}
+    </delete>
 </mapper>
