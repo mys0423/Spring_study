@@ -16,7 +16,7 @@ public interface MemberService {
     public MemberResponseDTO login(MemberVO memberVO);
 
 //    회원 정보 전체 조회
-    public List<MemberVO> getMembers();
+    public List<MemberResponseDTO> getMembers();
 
 //    회원 정보 조회
     public MemberResponseDTO getMemberInfo(Long id);

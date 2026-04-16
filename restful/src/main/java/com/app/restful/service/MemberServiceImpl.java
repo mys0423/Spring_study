@@ -7,11 +7,13 @@ import com.app.restful.domain.vo.MemberVO;
 import com.app.restful.exception.MemberException;
 import com.app.restful.repository.MemberDAO;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 @Transactional(rollbackFor = Exception.class)
@@ -32,12 +34,14 @@ public class MemberServiceImpl implements MemberService {
     @Override
     public void checkMemberEmailDuplicate(String memberEmail) {
         if(memberDAO.existMemberEmail(memberEmail) > 0){
-            throw new RuntimeException("이메일이 존재합니다.");
+            throw new MemberException("이메일이 존재합니다.", HttpStatus.CONFLICT);
         }
     }
 
-    public List<MemberVO> getMembers() {
-        return memberDAO.findAll();
+    public List<MemberResponseDTO> getMembers() {
+        return memberDAO.findAll().stream()
+                .map(MemberResponseDTO::from)
+                .collect(Collectors.toList());
     }
 
     // 로그인 서비스
@@ -49,7 +53,7 @@ public class MemberServiceImpl implements MemberService {
         return memberDAO
                 .findByMemberEmailAndMemberPassword(memberVO)
                 .map(MemberResponseDTO::from)
-                .orElseThrow(() -> {throw new MemberException("아이디 또는 비밀번호를 확인하세요.");});
+                .orElseThrow(() -> {throw new MemberException("아이디 또는 비밀번호를 확인하세요.", HttpStatus.UNAUTHORIZED);});
     }
 
 //    회원 정보 조회
@@ -59,7 +63,7 @@ public class MemberServiceImpl implements MemberService {
         return memberDAO
                 .findById(id)
                 .map(MemberResponseDTO::from)
-                .orElseThrow(() -> { throw new MemberException("회원을 찾을 수 없습니다."); });
+                .orElseThrow(() -> { throw new MemberException("회원을 찾을 수 없습니다.", HttpStatus.BAD_REQUEST); });
 
     }
 
