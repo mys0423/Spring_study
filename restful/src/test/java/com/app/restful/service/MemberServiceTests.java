@@ -1,6 +1,7 @@
 package com.app.restful.service;
 
 import com.app.restful.domain.dto.MemberJoinRequestDTO;
+import com.app.restful.domain.dto.MemberResponseDTO;
 import com.app.restful.domain.dto.MemberUpdateRequestDTO;
 import com.app.restful.domain.vo.MemberVO;
 import lombok.extern.slf4j.Slf4j;
@@ -38,5 +39,25 @@ public class MemberServiceTests {
         memberUpdateRequestDTO.setMemberName("홍길동3");
         memberUpdateRequestDTO.setId(1L);
         memberService.updateMember(memberUpdateRequestDTO);
+    }
+
+    @Test
+    public void getMembers(){
+        log.info("memberService : {}", memberService.getMembers());
+    }
+
+    @Test
+    public void memberDeleteTest(){
+        memberService.withdrawMember(65L);
+    }
+
+    @Test
+    public void memberLoginTest(){
+        MemberVO memberVO = new MemberVO();
+        memberVO.setMemberEmail("test147@gmail.com");
+        memberVO.setMemberPassword("장길동");
+
+        MemberResponseDTO result = memberService.login(memberVO);
+        log.info("memberService : {}", result);
     }
 }
